@@ -4,17 +4,24 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": ""
+    "build": "tsup index.js",
+    "release": "npm run build && zx scripts/release.mjs"
   },
   "keywords": [],
   "author": "GitHub",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^17.0.14",
+    "bumpp": "^7.1.1",
+    "fs-extra": "^10.0.0",
     "tsc": "^2.0.4",
-    "tsup": "^5.11.13"
+    "tsup": "^5.11.13",
+    "typescript": "^4.5.5",
+    "zx": "^4.3.0"
   },
   "dependencies": {
-    "typescript": "^4.5.5"
+    "child_process": "^1.0.2",
+    "commander": "^9.0.0",
+    "fs": "^0.0.1-security"
   }
 }
