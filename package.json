@@ -1,10 +1,10 @@
 {
   "name": "video-auto-subtitle",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "build": "tsup index.js",
+    "build": "tsup index.ts",
     "release": "npm run build && zx scripts/release.mjs"
   },
   "keywords": [],
