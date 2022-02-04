@@ -31,5 +31,5 @@ Some examples are like:
 node dist/index.js -v video.mp4
 ```
 
-then wait some time (very likely not a short time with intensive cpu consumption, largely due to ffmpeg) and you'll see ``output.srt` under the directory.
+then wait some time (very likely not a short time with intensive cpu consumption, largely due to ffmpeg) and you'll see `output.srt` under the directory.
 
