@@ -1,0 +1,20 @@
+{
+  "name": "video-auto-subtitle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [],
+  "author": "GitHub",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^17.0.14",
+    "tsc": "^2.0.4",
+    "tsup": "^5.11.13"
+  },
+  "dependencies": {
+    "typescript": "^4.5.5"
+  }
+}
