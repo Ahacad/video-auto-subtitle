@@ -846,7 +846,7 @@ var exec = require("child_process").exec;
 var fs = require("fs");
 var { Command } = require_commander();
 var program = new Command();
-program.option("-v, --video <videoname>", "video name to process", "video.mp4").option("-f, --file <filename>", "output srt file name", "output").option("-s, --sound <dbvalue>", "db value for silence", "-30dB").option("-d, --duration", "silence duration for detection", "0.2").option("--debug", "debug mode").parse(process.argv);
+program.option("-v, --video <videoname>", "video name to process", "video.mp4").option("-f, --file <filename>", "output srt file name", "output").option("-s, --sound <dbvalue>", "db value for silence", "-30dB").option("-d, --duration <duration>", "silence duration for detection", "0.2").option("--debug", "debug mode").parse(process.argv);
 var options = program.opts();
 function get_srt_format_time(origintime = "") {
   let time = Number(origintime.split(".")[0]);
@@ -854,7 +854,7 @@ function get_srt_format_time(origintime = "") {
   const minute = Math.floor((time - hour * 3600) / 60);
   const second = time - hour * 3600 - minute * 60;
   let millisecond = origintime.split(".")[1];
-  if (millisecond === "")
+  if (millisecond == void 0)
     millisecond = "000";
   if (millisecond.length > 3) {
     millisecond = millisecond.substring(0, 3);
@@ -898,7 +898,7 @@ function generate_srt(silence_starts, silence_ends, filename) {
   fs.writeFileSync(`./${filename}.srt`, output);
 }
 console.log("HELLO WORLD");
-var out1 = exec(`ffmpeg -i '${options.video}' -af silencedetect=noise=-30dB:d=0.2 -f null -`, function(error, stdout, stderr) {
+var out1 = exec(`ffmpeg -i '${options.video}' -af silencedetect=noise=${options.sound}:d=${options.duration} -f null -`, function(error, stdout, stderr) {
   fs.writeFileSync("tmp.txt", stderr.toString());
   const output1 = execSync("sed -i 's/\\r/\\n/g' tmp.txt");
   const silencestarts = execSync("awk '/silence_start/ {print $5}' tmp.txt").toString();

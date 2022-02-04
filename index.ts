@@ -8,7 +8,7 @@ program
   .option("-v, --video <videoname>", "video name to process", "video.mp4")
   .option("-f, --file <filename>", "output srt file name", "output")
   .option("-s, --sound <dbvalue>", "db value for silence", "-30dB")
-  .option("-d, --duration", "silence duration for detection", "0.2")
+  .option("-d, --duration <duration>", "silence duration for detection", "0.2")
   .option("--debug", "debug mode")
   .parse(process.argv);
 const options = program.opts();
@@ -21,7 +21,7 @@ function get_srt_format_time(origintime: string = ""): string {
   const minute: number = Math.floor((time - hour * 3600) / 60);
   const second: number = time - hour * 3600 - minute * 60;
   let millisecond: string = origintime.split(".")[1];
-  if (millisecond === "") millisecond = "000";
+  if (millisecond == undefined) millisecond = "000";
   if (millisecond.length > 3) {
     millisecond = millisecond.substring(0, 3);
   } else {
@@ -72,7 +72,7 @@ function generate_srt(
 
 console.log("HELLO WORLD");
 const out1 = exec(
-  `ffmpeg -i '${options.video}' -af silencedetect=noise=-30dB:d=0.2 -f null -`,
+  `ffmpeg -i '${options.video}' -af silencedetect=noise=${options.sound}:d=${options.duration} -f null -`,
   function (error, stdout, stderr) {
     fs.writeFileSync("tmp.txt", stderr.toString());
 
