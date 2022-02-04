@@ -854,6 +854,13 @@ function get_srt_format_time(origintime = "") {
   const minute = Math.floor((time - hour * 3600) / 60);
   const second = time - hour * 3600 - minute * 60;
   let millisecond = origintime.split(".")[1];
+  if (millisecond === "")
+    millisecond = "000";
+  if (millisecond.length > 3) {
+    millisecond = millisecond.substring(0, 3);
+  } else {
+    millisecond = millisecond.padEnd(3, "0");
+  }
   return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")},${millisecond}`;
 }
 function generate_srt(silence_starts, silence_ends, filename) {
@@ -861,13 +868,15 @@ function generate_srt(silence_starts, silence_ends, filename) {
   let cnt = 0;
   let output = "";
   const len = silence_starts.length - 1;
-  cnt++;
-  output += `${cnt}
+  if (Number(silence_starts[0]) !== 0) {
+    cnt++;
+    output += `${cnt}
 `;
-  output += `00:00:00,000 --> ${get_srt_format_time(silence_starts[0])}
+    output += `00:00:00,000 --> ${get_srt_format_time(silence_starts[0])}
 `;
-  output += "\n";
-  output += "\n";
+    output += "\n";
+    output += "\n";
+  }
   for (let i = 1; i < len; i++) {
     const start = get_srt_format_time(silence_ends[i - 1]);
     const end = get_srt_format_time(silence_starts[i]);

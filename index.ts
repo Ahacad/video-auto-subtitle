@@ -21,6 +21,12 @@ function get_srt_format_time(origintime: string = ""): string {
   const minute: number = Math.floor((time - hour * 3600) / 60);
   const second: number = time - hour * 3600 - minute * 60;
   let millisecond: string = origintime.split(".")[1];
+  if (millisecond === "") millisecond = "000";
+  if (millisecond.length > 3) {
+    millisecond = millisecond.substring(0, 3);
+  } else {
+    millisecond = millisecond.padEnd(3, "0");
+  }
   return `${String(hour).padStart(2, "0")}:${String(minute).padStart(
     2,
     "0"
@@ -37,11 +43,13 @@ function generate_srt(
   let output = "";
   const len = silence_starts.length - 1; // silence_starts have one empty string at the end, so length - 1
 
-  cnt++;
-  output += `${cnt}\n`;
-  output += `00:00:00,000 --> ${get_srt_format_time(silence_starts[0])}\n`;
-  output += "\n";
-  output += "\n";
+  if (Number(silence_starts[0]) !== 0) {
+    cnt++;
+    output += `${cnt}\n`;
+    output += `00:00:00,000 --> ${get_srt_format_time(silence_starts[0])}\n`;
+    output += "\n";
+    output += "\n";
+  }
 
   for (let i = 1; i < len; i++) {
     const start = get_srt_format_time(silence_ends[i - 1]);
