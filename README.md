@@ -15,7 +15,7 @@ VAS helps to automatically generate `.srt` subtitle file for video, so you can f
 
 Utilize [ffmpeg silence detection](http://underpop.online.fr/f/ffmpeg/help/silencedetect.htm.gz#:~:text=Detect%20silence%20in%20an%20audio,duration%20are%20expressed%20in%20seconds.) to get silence parts, then use `sed` and `awk` to extract text data, then `nodejs` process these data and write a `.srt` file for your further customization.
 
-## 🛠 Howt o use
+## 🛠 How to use
 
 Make sure you have `ffmpeg`, `sed`, `awk` and `nodejs` installed. Clone this repo, run 
 
