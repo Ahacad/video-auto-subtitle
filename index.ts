@@ -70,12 +70,12 @@ function generate_srt(
   fs.writeFileSync(`./${filename}.srt`, output);
 }
 
-console.log("HELLO WORLD");
+console.log("Start processing...");
 const out1 = exec(
   `ffmpeg -i '${options.video}' -af silencedetect=noise=${options.sound}:d=${options.duration} -f null -`,
   function (error, stdout, stderr) {
     fs.writeFileSync("tmp.txt", stderr.toString());
-
+    console.log("Ffmpeg finished, now generating srt file...");
     const output1 = execSync("sed -i 's/\\r/\\n/g' tmp.txt");
     const silencestarts = execSync(
       "awk '/silence_start/ {print $5}' tmp.txt"
@@ -87,6 +87,7 @@ const out1 = exec(
     let silence_starts: string[] = silencestarts.split("\n");
     let silence_ends: string[] = silenceends.split("\n");
     generate_srt(silence_starts, silence_ends, options.file);
+    console.log("Srt file generated.");
 
     if (!options.debug) {
       fs.unlinkSync("tmp.txt");
