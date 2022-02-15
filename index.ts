@@ -52,6 +52,9 @@ function generate_srt(
   }
 
   for (let i = 1; i < len; i++) {
+    // remove sounds shorter than 1s
+    if (Number(silence_ends[i]) - Number(silence_starts[i - 1]) < 1) continue;
+
     const start = get_srt_format_time(silence_ends[i - 1]);
     const end = get_srt_format_time(silence_starts[i]);
     cnt++;
