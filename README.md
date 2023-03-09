@@ -11,7 +11,7 @@ __     ___    ____
 
 VAS helps to automatically generate `.srt` subtitle file for video, so you can further adjust and edit it.
 
-⚠️ use [whisper!!!](https://github.com/ggerganov/whisper.cpp)
+⚠️ Just use [whisper!!!](https://github.com/ggerganov/whisper.cpp), this repo is depecated and will soon be archived.
 
 ## 🤔 The status quo working principle
 
